@@ -9,8 +9,22 @@ a = 1013904223
 seed = 94335 #CAMBIAR POR EL PROMEDIO DE NUESTROS PADRONES
 
 #IMPRIMIR LOS PRIMEROS 6
+# for i in range(0,6):
+#
+#     x = (a*seed + c) % m
+#     print(x)
+#     seed = x
+
+#MODIFICACION PARA DEVOLVER NUMEROS ENTRE 0 Y 1. HISTOGRAMA
+nums = list()
 for i in range(0,6):
 
-    x = (a*seed + c) % m
-    print(x)
+    x = ((a*seed + c) % m)/m
+    nums.insert(i,x)
     seed = x
+
+plt.hist(nums,bins = 50,color='green')
+plt.title('Distribucion de los numeros aleatorios obtenidos',color = 'blue')
+plt.xlabel('Numeros obtenidos', color = 'blue')
+plt.ylabel('Cantidad de apariciones',color = 'blue')
+plt.show()
