@@ -17,13 +17,13 @@ seed = 94335 #CAMBIAR POR EL PROMEDIO DE NUESTROS PADRONES
 
 #MODIFICACION PARA DEVOLVER NUMEROS ENTRE 0 Y 1. HISTOGRAMA
 nums = list()
-for i in range(0,6):
+for i in range(0,100000):
 
     x = ((a*seed + c) % m)/m
     nums.insert(i,x)
     seed = x
 
-plt.hist(nums,bins = 50,color='green')
+plt.hist(nums,color='green')
 plt.title('Distribucion de los numeros aleatorios obtenidos',color = 'blue')
 plt.xlabel('Numeros obtenidos', color = 'blue')
 plt.ylabel('Cantidad de apariciones',color = 'blue')
