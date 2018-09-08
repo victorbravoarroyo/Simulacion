@@ -1,5 +1,6 @@
 from math import log
 import matplotlib.pyplot as plt
+
 alfa = 1/15
 m = 2**32
 c = 1664525
