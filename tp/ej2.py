@@ -5,7 +5,7 @@ alfa = 1/15
 m = 2**32
 c = 1664525
 a = 1013904223
-seed = 94335
+seed = 94059
 nums = list()
 exp = 0
 for i in range(0,100000):
