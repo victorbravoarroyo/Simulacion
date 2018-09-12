@@ -8,26 +8,26 @@ c= sqrt(2*exp(1)/pi)
 n = 10
 numsExp = list()
 probabilidadDeAceptar = list()
+numsGauss = list() #ACA GUARDO LOS VALORES ACEPTADOS COMO GAUSSIANOS
 
 #NORMAL DE MEDIA 35 Y VARIANZA 25
 def normal(x):
 
     return ((exp(-0.5*(((x-35)/5)**2)))/sqrt(50*pi))
 
-
+#PROBABILIDAD DE ACPTAR EL VALOR GENERADO
 def prob(x):
 
     return (normal(x)/(c*exp(-x)))
 
-
+#GENERO MUESTRAS DE EXPONENCIALES DE MEDIA 1 Y GENERO UN VECTOR DE PROBABILIDADES
+#DE ACEPTAR CADA VALOR GENERADO
 for i in range(0,n):
-    t = np.random.exponential(1, 1)
+    t = np.random.exponential(1)
     numsExp.insert(i, t)
     probabilidadDeAceptar.insert(i,prob(t))
 
-numsGauss = list()
 for i in range(0,n):
-
     r = np.random.uniform()
     if r < probabilidadDeAceptar[n]:
         r2 = np.random.uniform()
@@ -36,7 +36,7 @@ for i in range(0,n):
         else:
             numsGauss.insert((i,(numsExp[i]*(-1))))
 
-print('Porcentaje de rechazo = ' + (n-len(numsGauss))/n)
+print('Porcentaje de rechazo = ' + str((n-len(numsGauss))/n))
 
 plt.hist(numsGauss)
 plt.show()
