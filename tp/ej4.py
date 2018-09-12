@@ -38,7 +38,7 @@ for i in range(0,n):
         if r2 < 0.5:
             numsGauss.insert(i,numsExp[i])
         else:
-            numsGauss.insert((i,(numsExp[i]*(-1))))
+            numsGauss.insert(i,numsExp[i]*(-1))
 
 print('Porcentaje de rechazo = ' + str((n-len(numsGauss))/n))
 
