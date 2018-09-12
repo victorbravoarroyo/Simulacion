@@ -29,11 +29,12 @@ for i in range(0,n):
 
 for i in range(0,n):
     r = np.random.uniform()
-    
+
     print( 'r me dio = ' + str(r) + ' y la probabilidad de acaptar es = ' + str(probabilidadDeAceptar[i]))
 
     if r < probabilidadDeAceptar[i]:
         r2 = np.random.uniform()
+        print ('r2 me esta dando =' + str(r2))
         if r2 < 0.5:
             numsGauss.insert(i,numsExp[i])
         else:
