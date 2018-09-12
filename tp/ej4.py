@@ -29,7 +29,7 @@ for i in range(0,n):
 
 for i in range(0,n):
     r = np.random.uniform()
-    if r < probabilidadDeAceptar[n]:
+    if r < probabilidadDeAceptar[i]:
         r2 = np.random.uniform()
         if r2 < 0.5:
             numsGauss.insert(i,numsExp[i])
