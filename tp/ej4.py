@@ -5,7 +5,7 @@ from math import sqrt, exp, pi
 c= sqrt(2*exp(1)/pi)
 
 #GENERO N MUESTRAS EXPONENCIALES DE MEDIA 1
-n = 10
+n = 100000
 numsExp = list()
 probabilidadDeAceptar = list()
 numsGauss = list() #ACA GUARDO LOS VALORES ACEPTADOS COMO GAUSSIANOS
@@ -30,11 +30,11 @@ for i in range(0,n):
 for i in range(0,n):
     r = np.random.uniform()
 
-    print( 'r me dio = ' + str(r) + ' y la probabilidad de acaptar es = ' + str(probabilidadDeAceptar[i]))
+    #print( 'r me dio = ' + str(r) + ' y la probabilidad de acaptar es = ' + str(probabilidadDeAceptar[i]))
 
     if r > probabilidadDeAceptar[i]:
         r2 = np.random.uniform()
-        print ('r2 me esta dando =' + str(r2))
+        #print ('r2 me esta dando =' + str(r2))
         if r2 < 0.5:
             numsGauss.insert(i,numsExp[i])
         else:
@@ -42,5 +42,5 @@ for i in range(0,n):
 
 print('Porcentaje de rechazo = ' + str((n-len(numsGauss))/n))
 
-plt.hist(numsGauss)
+plt.hist(numsGauss,bins=100)
 plt.show()
