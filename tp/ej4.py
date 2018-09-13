@@ -42,5 +42,9 @@ for i in range(0,n):
 
 print('Porcentaje de rechazo = ' + str((n-len(numsGauss))/n))
 
-plt.hist(numsGauss,bins=100)
+
+print('Varianza = ' + str(np.var(numsGauss)))
+print('Media = ' + str(np.median(numsGauss)))
+
+plt.hist(numsGauss,bins=1000)
 plt.show()
