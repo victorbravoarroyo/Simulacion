@@ -19,8 +19,8 @@ seed = 94059 #PARTE ENTERA DEL PROMEDIO DE NUESTROS PADRONES (94335 + 93784)/2
 nums = list()
 for i in range(0,100000):
 
-    x = ((a*seed + c) % m)/m
-    nums.insert(i,x)
+    x = ((a*seed + c) % m)
+    nums.insert(i,x/m)
     seed = x
 
 plt.hist(nums,color='green')
