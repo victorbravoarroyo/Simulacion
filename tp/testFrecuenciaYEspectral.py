@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy import stats as st
 from mpl_toolkits.mplot3d import Axes3D
 
 
@@ -9,7 +10,7 @@ m = 10
 c = 7
 a = 1
 seed = 1 #PARTE ENTERA DEL PROMEDIO DE NUESTROS PADRONES (94335 + 93784)/2
-M =1000
+M =11
 #IMPRIMIR LOS PRIMEROS 6
 # for i in range(0,6):
 #
@@ -40,6 +41,8 @@ d = 0
 unique, counts = np.unique(nums, return_counts=True)
 print(unique)
 print(counts)
+print('Moda = ' + str(st.mode(nums)))
+
 k = len(unique)
 for i in range(0,k):
     d = d + ((counts[i] - M*0.1)**2)/(M*0.1)

@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy import stats as st
 from math import sqrt, exp, pi
 
 c= sqrt(2*exp(1)/pi)
@@ -45,6 +46,7 @@ print('Porcentaje de rechazo = ' + str((n-len(numsGauss))/n))
 
 print('Varianza = ' + str(np.var(numsGauss)))
 print('Media = ' + str(np.median(numsGauss)))
+print('Moda = ' + str(st.mode(numsGauss)))
 
 plt.hist(numsGauss,bins=1000)
 plt.show()
