@@ -1,15 +1,28 @@
 from math import log
 import matplotlib.pyplot as plt
+import numpy as np
+import matplotlib.lines as ln
 
-m = 2**32
-c = 1664525
-a = 1013904223
-seed = 94059
 nums = list()
+tiempo = list()
+e = 1
+for i in range(0,20):
+    if e==1:
+        if (np.random.uniform() < 0.95):
+            nums.insert(i,1)
 
-for i in range(0,100000):
+        else:
+            nums.insert(i,0)
+            e = 0
+    else:
+        if (np.random.uniform() < 0.4):
+            nums.insert(i, 1)
+            e = 1
 
-    x = ((a*seed + c) % m)/m
-    nums.insert(i,x)
-    seed = x
+        else:
+            nums.insert(i, 0)
+    tiempo.insert(i,i)
+
+plt.plot(tiempo,nums)
+plt.show()
 
