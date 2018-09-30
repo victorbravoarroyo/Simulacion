@@ -31,11 +31,11 @@ while count <= maxAceptado:
     if(u < prob(j)):
         # print('aceptado: ', count)
         count += 1
-        if(u >= 0.5):
-            aceptados.append( transformL(j, 5/3, 35) )
+        if(np.random.rand() < 0.5):
+            aceptados.append( transformL(j, 3, 35) )
             # aceptados.append(j)
         else:
-            aceptados.append( transformL(j*-1, 5/3, 35) )
+            aceptados.append( transformL(j*-1, 3, 35) )
             # aceptados.append((-1*j))
 
 print('Varianza = ' + str(np.var(aceptados)))
