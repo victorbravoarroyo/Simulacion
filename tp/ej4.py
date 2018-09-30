@@ -1,49 +1,53 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats as st
-from math import sqrt, exp, pi
+from math import sqrt, exp, pi, log
 
-c= sqrt(2*exp(1)/pi)
+c = sqrt(2*exp(1)/pi)
 
-#GENERO N MUESTRAS EXPONENCIALES DE MEDIA 1
 n = 100000
-numsExp = list()
-probabilidadDeAceptar = list()
-numsGauss = list() #ACA GUARDO LOS VALORES ACEPTADOS COMO GAUSSIANOS
+aceptados = list() #VALORES ACEPTADOS SEGUN DISTRIBUCIÓN NORMAL, MEDIA 35 Y DESVÍO 5
 
 #NORMAL DE MEDIA 35 Y VARIANZA 25
-def normal(x):
+def X(t):
+    return exp(-0.5*t)/(sqrt(2*pi))
+    # return exp(-0.5*(((t-35)/5)**2))/(5*sqrt(2*pi))
 
-    return ((exp(-0.5*(((x-35)/5)**2)))/sqrt(50*pi))
+def Y(t):
+    return exp(-t)
 
-#PROBABILIDAD DE ACPTAR EL VALOR GENERADO
-def prob(x):
+def prob(t):
+    return (X(t)/(c*Y(t)))
 
-    return (normal(x)/(c*exp(-x)))
+def transformL(x, a, b):
+    return (x*a) + b
 
-#GENERO MUESTRAS DE EXPONENCIALES DE MEDIA 1 Y GENERO UN VECTOR DE PROBABILIDADES
-#DE ACEPTAR CADA VALOR GENERADO
-for i in range(0,n):
-    t = np.random.exponential(1)
-    numsExp.insert(i, t)
-    probabilidadDeAceptar.insert(i,prob(t))
+count = 1
+maxAceptado = 100000
+while count <= maxAceptado:
+    u = np.random.uniform()
+    j = np.random.exponential(1)
 
-for i in range(0,n):
-    r = np.random.uniform()
-
-    if r > probabilidadDeAceptar[i]:
-        r2 = np.random.uniform()
-        if r2 < 0.5:
-            numsGauss.insert(i,numsExp[i])
+    if(u < prob(j)):
+        # print('aceptado: ', count)
+        count += 1
+        if(np.random.rand() < 0.5):
+            aceptados.append( transformL(j, 3, 35) )
+            # aceptados.append(j)
         else:
-            numsGauss.insert(i,numsExp[i]*(-1))
+            aceptados.append( transformL(j*-1, 3, 35) )
+            # aceptados.append((-1*j))
 
-print('Porcentaje de rechazo = ' + str((n-len(numsGauss))/n))
+print('Varianza = ' + str(np.var(aceptados)))
+print('Media = ' + str(np.median(aceptados)))
+print('Moda = ' + str(st.mode(aceptados)[0][0]))
 
 
-print('Varianza = ' + str(np.var(numsGauss)))
-print('Media = ' + str(np.median(numsGauss)))
-print('Moda = ' + str(st.mode(numsGauss)))
+valoresNormal = list()
+for i in range(0, maxAceptado):
+    n = np.random.normal(35, 5)
+    valoresNormal.append(n)
 
-plt.hist(numsGauss,bins=1000)
-plt.show()
+print('Varianza = ' + str(np.var(valoresNormal)))
+print('Media = ' + str(np.median(valoresNormal)))
+print('Moda = ' + str(st.mode(valoresNormal)[0][0]))
