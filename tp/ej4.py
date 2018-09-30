@@ -41,3 +41,13 @@ while count <= maxAceptado:
 print('Varianza = ' + str(np.var(aceptados)))
 print('Media = ' + str(np.median(aceptados)))
 print('Moda = ' + str(st.mode(aceptados)[0][0]))
+
+
+valoresNormal = list()
+for i in range(0, maxAceptado):
+    n = np.random.normal(35, 5)
+    valoresNormal.append(n)
+
+print('Varianza = ' + str(np.var(valoresNormal)))
+print('Media = ' + str(np.median(valoresNormal)))
+print('Moda = ' + str(st.mode(valoresNormal)[0][0]))
