@@ -56,7 +56,7 @@ print('Tiempo medio de resolucion - 1 base de datos central', np.mean(centralTim
 
 td = getTimeDiffPercent(distributedTimes["solveTimes"], centralTimes["solveTimes"])
 print('La opcion de 2 bases de datos distribuidas es', td, '% de la opcion de 1 base de datos central')
-if (td >= 100):
+if (td >= 50):
   print('Por lo tanto recomiendo la opcion de 1 base de datos central')
 else:
   print('Por lo tanto recomiendo la opcion de 2 bases de datos distribuidas')
