@@ -19,6 +19,7 @@ def simulateWaitTimes(processFn, times):
   serviceCallTime = 0
   readyAtTime = 0
   waits = list()
+  solves = list()
 
   for i in range(0, times):
     serviceCallTime += serviceCall()
@@ -27,19 +28,36 @@ def simulateWaitTimes(processFn, times):
 
     if (waitTime > 0):
       waits.append(waitTime)
+      solves.append(waitTime + processTime)
     else:
       waits.append(0)
+      solves.append(processTime)
 
     readyAtTime = serviceCallTime + processTime
 
-  return waits
+  return { "waitTimes": waits, "solveTimes": solves }
 
-distributedWaitTimes = simulateWaitTimes(distributedDBProcessTime, 100000)
-centralWaitTimes = simulateWaitTimes(centralDBProcessTime, 100000)
+def getTimeDiffPercent(t1, t2):
+  wt1 = np.mean(t1)
+  wt2 = np.mean(t2)
+  return wt1*100/wt2
 
-print('Tiempo medio de espera - 2 bases de datos distribuidas', np.mean(distributedWaitTimes))
-print('Tiempo medio de espera - 1 base de datos central', np.mean(centralWaitTimes))
+distributedTimes = simulateWaitTimes(distributedDBProcessTime, 100000)
+centralTimes = simulateWaitTimes(centralDBProcessTime, 100000)
 
-print('Fracción de solicitudes que no esperaron para ser procesadas - 2 bases de datos distribuidas', meanInstantProcessedServiceCalls(distributedWaitTimes))
-print('Fracción de solicitudes que no esperaron para ser procesadas - 1 base de datos central', meanInstantProcessedServiceCalls(centralWaitTimes))
+print('Tiempo medio de espera - 2 bases de datos distribuidas', np.mean(distributedTimes["waitTimes"]))
+print('Tiempo medio de espera - 1 base de datos central', np.mean(centralTimes["waitTimes"]))
+
+print('Fracción de solicitudes que no esperaron para ser procesadas - 2 bases de datos distribuidas', meanInstantProcessedServiceCalls(distributedTimes["waitTimes"]))
+print('Fracción de solicitudes que no esperaron para ser procesadas - 1 base de datos central', meanInstantProcessedServiceCalls(centralTimes["waitTimes"]))
+
+print('Tiempo medio de resolucion - 2 bases de datos distribuidas', np.mean(distributedTimes["solveTimes"]))
+print('Tiempo medio de resolucion - 1 base de datos central', np.mean(centralTimes["solveTimes"]))
+
+td = getTimeDiffPercent(distributedTimes["solveTimes"], centralTimes["solveTimes"])
+print('La opcion de 2 bases de datos distribuidas es', td, '% de la opcion de 1 base de datos central')
+if (td >= 100):
+  print('Por lo tanto recomiendo la opcion de 1 base de datos central')
+else:
+  print('Por lo tanto recomiendo la opcion de 2 bases de datos distribuidas')
 
